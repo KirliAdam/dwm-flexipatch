@@ -15,6 +15,12 @@ Refer to [https://dwm.suckless.org/](https://dwm.suckless.org/) for details on t
 
 ### Changelog:
 
+2020-10-26 - Added the \_NET\_CLIENT\_LIST\_STACKING patch
+
+2020-09-29 - Added the on\_empty\_keys patch (ported from InstantOS)
+
+2020-09-28 - Added the \_IS\_FLOATING patch (embedded in the EWMHTAGS patch)
+
 2020-09-18 - Added the nomodbuttons patch allowing for toggleable mouse button bindings that have no modifiers
 
 2020-09-10 - Added the anybar patch (with experimental support for dwm bar(s) + anybar)
@@ -125,7 +131,7 @@ Refer to [https://dwm.suckless.org/](https://dwm.suckless.org/) for details on t
 
 2019-10-11 - Added the patch to ignore Xft errors when drawing text in the status bar
 
-2019-10-10 - Added mdpcontrol, scratchpad and spawn_cwd cpatches
+2019-10-10 - Added mpdcontrol, scratchpad and spawn_cwd cpatches
 
 2019-10-08 - Added columns layout and fakefullscreen patch
 
@@ -369,6 +375,11 @@ Refer to [https://dwm.suckless.org/](https://dwm.suckless.org/) for details on t
       - implements inter-process communication through a UNIX socket for dwm
       - allows for the window manager to be queried for information, e.g. listen for events such as tag or layout changes, as well as send commands to control the window manager via other programs
 
+   - [\_IS\_FLOATING](https://github.com/bakkeby/dwm-flexipatch/issues/50)
+      - adds the \_IS\_FLOATING xproperty for floating windows
+      - this can allow for a compositor to handle floating windows differently to tiled windows, e.g. only show shadows on floating windows
+      - this patch is enabled via the ewmhtags patch
+
    - [ispermanent](https://dwm.suckless.org/patches/ispermanent/)
       - adds rule option for clients to avoid accidental termination by killclient for sticky windows
 
@@ -386,7 +397,7 @@ Refer to [https://dwm.suckless.org/](https://dwm.suckless.org/) for details on t
    - [maximize](https://dwm.suckless.org/patches/maximize/)
       - adds helper functions for maximizing, horizontally and vertically, floating windows using keybindings
 
-   - [mdpcontrol](https://dwm.suckless.org/patches/mpdcontrol/)
+   - [mpdcontrol](https://dwm.suckless.org/patches/mpdcontrol/)
       - adds keyboard bindings to control MDP (Music Player Daemon)
 
    - [monitorrules](https://github.com/bakkeby/patches/wiki/monitorrules/)
@@ -403,6 +414,9 @@ Refer to [https://dwm.suckless.org/](https://dwm.suckless.org/) for details on t
    - [movestack](https://dwm.suckless.org/patches/movestack/)
       - allows you to move clients around in the stack and swap them with the master
 
+   - [netclientliststacking](https://github.com/bakkeby/patches/wiki/netclientliststacking)
+      - adds support for the \_NET\_CLIENT\_LIST\_STACKING atom, needed by certain applications like the Zoom video conferencing application
+
    - [noborder](https://dwm.suckless.org/patches/noborder/)
       - removes the border when there is only one window visible
 
@@ -418,6 +432,10 @@ Refer to [https://dwm.suckless.org/](https://dwm.suckless.org/) for details on t
       - when terminals have transparency then their borders also become transparent
       - this patch ensures that borders have no transparency
       - note that this patch is only relevant if you are not using the alpha patch
+
+   - [on\_empty\_keys](https://github.com/bakkeby/dwm-flexipatch/issues/51)
+      - port of InstantVM's on_empty_keys functionality allowing keybindings that apply only when a tag/view is empty
+      - an example use case is being able to launch applications with first hand keys like "f" to launch firefox
 
    - [onlyquitonempty](https://dwm.suckless.org/patches/onlyquitonempty/)
       - makes it so dwm will only exit via quit() if no windows are open (in order to prevent accidental loss of work)

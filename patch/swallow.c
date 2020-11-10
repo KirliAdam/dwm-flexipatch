@@ -18,6 +18,8 @@ swallow(Client *p, Client *c)
 	if (c->noswallow < 0 && !swallowfloating && c->isfloating)
 		return 0;
 
+	XMapWindow(dpy, c->win);
+
 	detach(c);
 	detachstack(c);
 
@@ -36,6 +38,9 @@ swallow(Client *p, Client *c)
 
 	updatetitle(p);
 	s = scanner ? c : p;
+	#if BAR_EWMHTAGS_PATCH
+	setfloatinghint(s);
+	#endif // BAR_EWMHTAGS_PATCH
 	XMoveResizeWindow(dpy, p->win, s->x, s->y, s->w, s->h);
 	arrange(p->mon);
 	configure(p);
@@ -60,6 +65,9 @@ unswallow(Client *c)
 	arrange(c->mon);
 	XMapWindow(dpy, c->win);
 	XMoveResizeWindow(dpy, c->win, c->x, c->y, c->w, c->h);
+	#if BAR_EWMHTAGS_PATCH
+	setfloatinghint(c);
+	#endif // BAR_EWMHTAGS_PATCH
 	setclientstate(c, NormalState);
 	focus(NULL);
 	arrange(c->mon);

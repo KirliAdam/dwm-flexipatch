@@ -65,6 +65,7 @@ static const int showsystray             = 1;   /* 0 means no systray */
 #endif // BAR_SYSTRAY_PATCH
 /* Indicators: see patch/bar_indicators.h for options */
 static int tagindicatortype              = INDICATOR_TOP_LEFT_SQUARE;
+static int tiledindicatortype            = INDICATOR_NONE;
 static int floatindicatortype            = INDICATOR_TOP_LEFT_SQUARE;
 #if FAKEFULLSCREEN_CLIENT_PATCH
 static int fakefsindicatortype           = INDICATOR_PLUS;
@@ -305,13 +306,9 @@ static const char *const autostart[] = {
 
 #if SCRATCHPADS_PATCH
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
-const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger", NULL };
-const char *spcmd3[] = {"keepassxc", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"spterm",      spcmd1},
-   {"spranger",    spcmd2},
-   {"keepassxc",   spcmd3},
 };
 #endif // SCRATCHPADS_PATCH
 
@@ -395,8 +392,6 @@ static const Rule rules[] = {
 	RULE(.class = "Firefox", .tags = 1 << 7)
 	#if SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
-	RULE(.instance = "spfm", .tags = SPTAG(1), .isfloating = 1)
-	RULE(.instance = "keepassxc", .tags = SPTAG(2))
 	#endif // SCRATCHPADS_PATCH
 };
 
@@ -739,6 +734,14 @@ static const char *statuscmds[] = { "notify-send Mouse$BUTTON" };
 static char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL };
 #endif // BAR_STATUSCMD_PATCH | DWMBLOCKS_PATCH
 
+#if ON_EMPTY_KEYS_PATCH
+static const char* firefoxcmd[] = {"firefox", NULL};
+static Key on_empty_keys[] = {
+	/* modifier key            function                argument */
+	{ 0,        XK_f,          spawn,                  {.v = firefoxcmd } },
+};
+#endif // ON_EMPTY_KEYS_PATCH
+
 static Key keys[] = {
 	/* modifier                     key            function                argument */
 	#if KEYMODES_PATCH
@@ -903,8 +906,8 @@ static Key keys[] = {
 	#endif // NO_MOD_BUTTONS_PATCH
 	#if SCRATCHPADS_PATCH
 	{ MODKEY,                       XK_grave,      togglescratch,          {.ui = 0 } },
-	{ MODKEY|ControlMask,           XK_grave,      togglescratch,          {.ui = 1 } },
-	{ MODKEY|ShiftMask,             XK_grave,      togglescratch,          {.ui = 2 } },
+	{ MODKEY|ControlMask,           XK_grave,      setscratch,             {.ui = 0 } },
+	{ MODKEY|ShiftMask,             XK_grave,      removescratch,          {.ui = 0 } },
 	#endif // SCRATCHPADS_PATCH
 	#if UNFLOATVISIBLE_PATCH
 	{ MODKEY|Mod4Mask,              XK_space,      unfloatvisible,         {0} },
@@ -926,6 +929,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,      scratchpad_show,        {0} },
 	{ MODKEY|ShiftMask,             XK_minus,      scratchpad_hide,        {0} },
 	{ MODKEY,                       XK_equal,      scratchpad_remove,      {0} },
+	#elif SCRATCHPADS_PATCH
+	{ MODKEY,                       XK_0,          view,                   {.ui = ~SPTAGMASK } },
+	{ MODKEY|ShiftMask,             XK_0,          tag,                    {.ui = ~SPTAGMASK } },
 	#else
 	{ MODKEY,                       XK_0,          view,                   {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,          tag,                    {.ui = ~0 } },
@@ -1073,11 +1079,11 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_comma,      cyclelayout,            {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period,     cyclelayout,            {.i = +1 } },
 	#endif // CYCLELAYOUTS_PATCH
-	#if MDPCONTROL_PATCH
+	#if MPDCONTROL_PATCH
 	{ MODKEY,                       XK_F1,         mpdchange,              {.i = -1} },
 	{ MODKEY,                       XK_F2,         mpdchange,              {.i = +1} },
 	{ MODKEY,                       XK_Escape,     mpdcontrol,             {0} },
-	#endif // MDPCONTROL_PATCH
+	#endif // MPDCONTROL_PATCH
 	TAGKEYS(                        XK_1,                                  0)
 	TAGKEYS(                        XK_2,                                  1)
 	TAGKEYS(                        XK_3,                                  2)
@@ -1267,10 +1273,10 @@ static Signal signals[] = {
 	#if CYCLELAYOUTS_PATCH
 	{ "cyclelayout",             cyclelayout },
 	#endif // CYCLELAYOUTS_PATCH
-	#if MDPCONTROL_PATCH
+	#if MPDCONTROL_PATCH
 	{ "mpdchange",               mpdchange },
 	{ "mpdcontrol",              mpdcontrol },
-	#endif // MDPCONTROL_PATCH
+	#endif // MPDCONTROL_PATCH
 	{ "toggleviewex",            toggleviewex },
 	{ "tag",                     tag },
 	{ "tagall",                  tagallex },
@@ -1405,10 +1411,10 @@ static IPCCommand ipccommands[] = {
 	IPCCOMMAND( toggleverticalmax, 1, {ARG_TYPE_NONE} ),
 	IPCCOMMAND( togglemax, 1, {ARG_TYPE_NONE} ),
 	#endif // MAXIMIZE_PATCH
-	#if MDPCONTROL_PATCH
+	#if MPDCONTROL_PATCH
 	IPCCOMMAND( mpdchange, 1, {ARG_TYPE_SINT} ),
 	IPCCOMMAND( mpdcontrol, 1, {ARG_TYPE_NONE} ),
-	#endif // MDPCONTROL_PATCH
+	#endif // MPDCONTROL_PATCH
 	#if MOVEPLACE_PATCH
 	IPCCOMMAND( moveplace, 1, {ARG_TYPE_UINT} ),
 	#endif // MOVEPLACE_PATCH

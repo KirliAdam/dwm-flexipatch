@@ -238,6 +238,15 @@
 /* Adds EWMH support for _NET_NUMBER_OF_DESKTOPS, _NET_CURRENT_DESKTOP, _NET_DESKTOP_NAMES
  * and _NET_DESKTOP_VIEWPORT, which allows for compatibility with other bars and programs
  * that request workspace information. For example polybar's xworkspaces module.
+ *
+ * This patch also includes support for adding the _IS_FLOATING property for floating windows
+ * allowing for compositors to treat floating windows differently to tiled windows.
+ *
+ * E.g. this setting makes picom only render shadows for floating windows:
+ *
+ *     shadow-exclude = [ "! _IS_FLOATING@:32c = 1" ];
+ *
+ * https://github.com/bakkeby/dwm-flexipatch/issues/50 (_IS_FLOATING patch)
  * https://dwm.suckless.org/patches/ewmhtags/
  */
 #define BAR_EWMHTAGS_PATCH 0
@@ -602,7 +611,7 @@
  *    - libmpdclient
  * https://dwm.suckless.org/patches/mpdcontrol/
  */
-#define MDPCONTROL_PATCH 0
+#define MPDCONTROL_PATCH 0
 
 /* Adds rules per monitor, e.g. have default layouts per monitor.
  * The use case for this is if the second monitor is vertical (i.e. rotated) then
@@ -634,6 +643,12 @@
  * https://dwm.suckless.org/patches/movestack/
  */
 #define MOVESTACK_PATCH 0
+
+/* Adds support for the _NET_CLIENT_LIST_STACKING atom, needed by certain applications like the
+ * Zoom video conferencing application.
+ * https://github.com/bakkeby/patches/wiki/netclientliststacking/
+ */
+#define NET_CLIENT_LIST_STACKING_PATCH 0
 
 /* Removes the border when there is only one window visible.
  * https://dwm.suckless.org/patches/noborder/
@@ -667,6 +682,15 @@
  * https://dwm.suckless.org/patches/alpha/dwm-fixborders-6.2.diff
  */
 #define NO_TRANSPARENT_BORDERS_PATCH 0
+
+/* Port of InstantVM's on_empty_keys functionality allowing keybindings that apply only when
+ * a tag is empty. An example use case is being able to launch applications with first hand
+ * keys like "f" to launch firefox.
+ *
+ * https://github.com/instantOS/instantWM/
+ * https://github.com/bakkeby/dwm-flexipatch/issues/51
+ */
+#define ON_EMPTY_KEYS_PATCH 0
 
 /* Minor patch that prevents more than one rule being matched for a given client. */
 #define ONLY_ONE_RULE_MATCH_PATCH 0
@@ -713,11 +737,6 @@
  */
 #define REORGANIZETAGS_PATCH 0
 
-/* Resets the layout and mfact if there is only one visible client.
- * https://dwm.suckless.org/patches/resetlayout/
- */
-#define RESETLAYOUT_PATCH 0
-
 /* By default, windows only resize from the bottom right corner. With this
  * patch the mouse is warped to the nearest corner and you resize from there.
  * https://dwm.suckless.org/patches/resizecorners/
@@ -757,6 +776,11 @@
 
 /* The scratchpad patch allows you to spawn or restore floating terminal windows.
  * It is typically useful when one need to do some short typing.
+ *
+ * Note that this patch changes TAGMASK to make room for special scratchpad tags,
+ * so ~0 does more than select all tags with this patch. Code that relies on ~0 to
+ * represent all tags should use ~SPTAGMASK instead.
+ *
  * Upgraded to Christian Tenllado's multiple scratchpad version.
  * https://lists.suckless.org/hackers/2004/17205.html
  * https://dwm.suckless.org/patches/scratchpads/
