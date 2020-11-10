@@ -399,7 +399,7 @@ static const Rule rules[] = {
     #if SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
     #endif // SCRATCHPADS_PATCH
-}
+};
 
 #if MONITOR_RULES_PATCH
 #if PERTAG_PATCH
