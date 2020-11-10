@@ -2,10 +2,10 @@
 
 /* appearance */
 #if ROUNDED_CORNERS_PATCH
-static const unsigned int borderpx       = 5;   /* border pixel of windows */
+static const unsigned int borderpx       = 0;   /* border pixel of windows */
 static const int corner_radius           = 10;
 #else
-static const unsigned int borderpx       = 1;   /* border pixel of windows */
+static const unsigned int borderpx       = 3;   /* border pixel of windows */
 #endif // ROUNDED_CORNERS_PATCH
 static const unsigned int snap           = 32;  /* snap pixel */
 #if SWALLOW_PATCH
@@ -395,9 +395,11 @@ static const Rule rules[] = {
 	RULE(.class = "firefox", .tags = 1 << 1)
 	RULE(.class = "tutanota-desktop", .tags = 1 << 5)
 	RULE(.class = "Stremio", .tags = 1 << 4)
-	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 	RULE(.class = "Dragon", .iscentered = 1)
-};
+    #if SCRATCHPADS_PATCH
+	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
+    #endif // SCRATCHPADS_PATCH
+}
 
 #if MONITOR_RULES_PATCH
 #if PERTAG_PATCH
