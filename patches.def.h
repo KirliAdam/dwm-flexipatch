@@ -19,7 +19,7 @@
  * Awesomebar takes precedence over fancybar.
  * https://dwm.suckless.org/patches/awesomebar/
  */
-#define BAR_AWESOMEBAR_PATCH 1
+#define BAR_AWESOMEBAR_PATCH 0 
 
 /* This patch depends on statuscmd patch and adds integration with a (patched) dwmblocks
  * instance to give a clickable status bar.
@@ -74,7 +74,7 @@
 /* This patch turns the titlebar area into a mfact-respecting tabbar showing each client's title.
  * https://dwm.suckless.org/patches/bartabgroups/
  */
-#define BAR_TABGROUPS_PATCH 1
+#define BAR_TABGROUPS_PATCH 0 
 
 /* This patch adds an option to place tags in rows like in many other window managers.
  * https://dwm.suckless.org/patches/taggrid/
@@ -205,7 +205,7 @@
  * modules.
  * https://dwm.suckless.org/patches/centeredwindowname/
  */
-#define BAR_CENTEREDWINDOWNAME_PATCH 1
+#define BAR_CENTEREDWINDOWNAME_PATCH 0
 
 /* Draws a dot indicator overlayed on each tag icon for each client. The selected client
  * is drawn as a larger horizontal line.
@@ -305,7 +305,7 @@
  * This patch is incompatible with and takes precedence over the status2d patch.
  * https://dwm.suckless.org/patches/statuscolors/
  */
-#define BAR_STATUSCOLORS_PATCH 1
+#define BAR_STATUSCOLORS_PATCH 0
 
 /* This patch adds configuration options for horizontal and vertical padding in the status bar.
  * https://dwm.suckless.org/patches/statuspadding/
@@ -385,7 +385,7 @@
  * This patch takes precedence over centeredwindowname and fancybar patches.
  * https://dwm.suckless.org/patches/center/
  */
-#define CENTER_PATCH 0
+#define CENTER_PATCH 1
 
 /* A transient window is one that is meant to be short lived and is usually raised by a
  * parent window. Such windows are typically dialog boxes and the like.
@@ -402,7 +402,7 @@
 /* As above, except that the transient window is centered within the position of the parent
  * window, rather than at the center of the screen. This takes precedence over the above patch.
  */
-#define CENTER_TRANSIENT_WINDOWS_BY_PARENT_PATCH 0
+#define CENTER_TRANSIENT_WINDOWS_BY_PARENT_PATCH 1
 
 /* This patch provides the ability to assign different weights to clients in their
  * respective stack in tiled layout.
@@ -587,7 +587,7 @@
 /* This patch adds a keybinding to kills all visible clients that are not selected.
  * https://dwm.suckless.org/patches/killunsel/
  */
-#define KILLUNSEL_PATCH 0
+#define KILLUNSEL_PATCH 1
 
 /* By default in dwm it is possible to make an application fullscreen, then use
  * the focusstack keybindings to focus on other windows beneath the current window.
@@ -758,7 +758,7 @@
 /* This patch let's you rotate through the stack using keyboard shortcuts.
  * https://dwm.suckless.org/patches/rotatestack/
  */
-#define ROTATESTACK_PATCH 0
+#define ROTATESTACK_PATCH 1
 
 /* This patch adds rounded corners to client windows in dwm.
  * You need to uncomment the corresponding line in config.mk to use the -lXext library
@@ -772,7 +772,7 @@
  * will be restored.
  * https://dwm.suckless.org/patches/save_floats/
  */
-#define SAVEFLOATS_PATCH 0
+#define SAVEFLOATS_PATCH 1
 
 /* The scratchpad patch allows you to spawn or restore floating terminal windows.
  * It is typically useful when one need to do some short typing.
@@ -788,7 +788,7 @@
 #define SCRATCHPADS_PATCH 1
 
 /* Minor alteration of the above allowing clients to keep their size and position when shown */
-#define SCRATCHPADS_KEEP_POSITION_AND_SIZE_PATCH 0
+#define SCRATCHPADS_KEEP_POSITION_AND_SIZE_PATCH 1
 
 /* This alternative patch enables a scratchpad feature in dwm similar to the scratchpad
  * feature in i3wm.
@@ -907,7 +907,7 @@
  * keyboard shortcuts.
  * https://dwm.suckless.org/patches/swaptags/
  */
-#define SWAPTAGS_PATCH 1
+#define SWAPTAGS_PATCH 0
 
 /* Switch focus between the master and stack columns using a single keybinding.
  * https://dwm.suckless.org/patches/switchcol/
@@ -1052,7 +1052,7 @@
  * the float border color, awesomebar, urgentborder and titlecolor patches.
  * https://dwm.suckless.org/patches/xrdb/
  */
-#define XRDB_PATCH 0
+#define XRDB_PATCH 1
 
 /* Simple patch that allows floating windows to be zoomed into the master stack position.
  * https://www.reddit.com/r/suckless/comments/ie5fe3/zoomfloating_my_own_simple_original_patch/
@@ -1098,17 +1098,17 @@
 /* Deck layout.
  * https://dwm.suckless.org/patches/deck/
  */
-#define DECK_LAYOUT 1
+#define DECK_LAYOUT 0
 
 /* Fibonacci dwindle layout.
  * https://dwm.suckless.org/patches/fibonacci/
  */
-#define FIBONACCI_DWINDLE_LAYOUT 1
+#define FIBONACCI_DWINDLE_LAYOUT 0
 
 /* Fibonacci spiral layout.
  * https://dwm.suckless.org/patches/fibonacci/
  */
-#define FIBONACCI_SPIRAL_LAYOUT 1
+#define FIBONACCI_SPIRAL_LAYOUT 0
 
 /* Flextile deluxe layout.
  * A revamped, more flexible, and over-the-top version of the original flextile layout.
@@ -1139,9 +1139,9 @@
 /* The default tile layout.
  * This can be optionally disabled in favour of other layouts.
  */
-#define TILE_LAYOUT 1
+#define TILE_LAYOUT 0
 
 /* Monocle layout (default).
  * This can be optionally disabled in favour of other layouts.
  */
-#define MONOCLE_LAYOUT 1
+#define MONOCLE_LAYOUT 0
